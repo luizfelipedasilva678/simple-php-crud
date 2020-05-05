@@ -13,6 +13,10 @@
     border-style: none;
 }
 
+.employees{
+    width: 500px;
+}
+
 .panel{
     display: inline-block;
     padding: 8px;

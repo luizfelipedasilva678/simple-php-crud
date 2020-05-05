@@ -13,20 +13,20 @@
             $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
             
             try{
-                $this->conexao = new PDO("mysql:host={$host};dbname={$database}",$user,$password,$options);
+                $this->connection = new PDO("mysql:host={$host};dbname={$database}",$user,$password,$options);
             }catch(PDOException $e){
                 echo $e->getMessage();
                 die("Connection error: ".$e->getMessage());
             }
         }
-            
+
         public static function getInstace():ConnectionSingleton{
             if(!isset(self::$instance))
 				self::$instance = new ConnectionSingleton();
 			return self::$instance;
         }
 
-        public function getPDOConnection(){
+        public function getPDOConnection():PDO{
             return $this->connection;
         }
     }

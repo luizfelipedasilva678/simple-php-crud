@@ -10,9 +10,9 @@
         }
 
         public function loadAll(){
-            $sql = "select first_name, email from employees";
-
-            
+            $sql = "select first_name, last_name, email, gender, job_title from employees where id< 10";
+            $result = $this->connection->query($sql)->fetchAll((PDO::FETCH_ASSOC));
+            return $result;
         }
     }
 ?>
