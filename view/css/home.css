@@ -59,6 +59,11 @@ ol li{
     list-style: none;
 }
 
+.register {
+    margin: 10px;
+    padding: 10px;
+}
+
 main{
     grid-area: main;
 }

@@ -37,7 +37,7 @@
         }
 
         public function setGender(string $gender){
-            if(strtoupper($gender) === 'Male' || strtoupper($gender) === 'Female'){
+            if(strtoupper($gender) == 'MALE' || strtoupper($gender) == 'FEMALE'){
                 $this->gender = $gender;
             }
         }
