@@ -16,7 +16,7 @@
         public function loadAll(int $qtd){
             try{
                 $quantity = $qtd;
-                $this->sql = "select id,first_name, last_name, email, gender, job_title from employees where id>1000";
+                $this->sql = "select id,first_name, last_name, email, gender, job_title from employees where id<=40";
                 $this->stmt = $this->connection->prepare($this->sql);
                 $this->stmt->bindParam(":qtd", $quantity);
                 $this->stmt->execute();
@@ -42,6 +42,16 @@
             }
         }
 
+        public function deleteEmployee(int $id){
+            try{
+                $this->sql = "DELETE FROM employees WHERE id=?";
+                $this->stmt = $this->connection->prepare($this->sql);
+                $this->stmt->bindValue(1, $id);
+                $this->stmt->execute();
+            }catch(PDOException $e){
+                throw new CrudException("Error CrudException: " . $e->getMessage());
+            }
+        }
 
     }
 ?>

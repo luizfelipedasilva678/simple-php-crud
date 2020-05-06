@@ -41,8 +41,8 @@
                                         tableElements +=  '<td>'+ response[i].job_title + '</td>';
                                         tableElements +=  
                                         '<td>'+ 
-                                            '<button class="delete">' + "<i class='icofont-trash'></i>" + '</button>'   
-                                            +' '+'<button class="edit">' + "<i class='edit icofont-edit'></i>" + '</button>'
+                                            `<button id="${response[i].id}" class="delete">` + `<i id="${response[i].id}" class='icofont-trash'></i>` + '</button>'   
+                                            +' '+`<button id="${response[i].id}" class="edit">` + `<i id="${response[i].id}" class='edit icofont-edit'></i>` + '</button>'
                                         +'</td>';
                                         tableElements += '</tr>';
                                     }
@@ -54,6 +54,7 @@
                         }catch(e){
                             console.log('Error:  ' + e.message);
                         }
+                        deleteEmployee();
                     } 
                     else {
                         alert('Response error');
@@ -101,7 +102,6 @@
                                 body: dados
                             })
                             .then(alert('User successfully registered'))
-                            
                         })
                     } else {
                         alert('Response error');
@@ -112,9 +112,33 @@
         })   
     }
 
+    function deleteEmployee(){
+        var  buttonsDelete = document.querySelectorAll(".delete");
+        Array.prototype.forEach.call(buttonsDelete, elem =>{
+            elem.addEventListener('click', function(e){
+                let id = {};
+                let identification = e.target.id;
+                id.id = identification;
+                let dados = new FormData();
+                dados.append('id', JSON.stringify(id));
+
+                fetch('../controllers/deleteEmployee.php', {
+                    method: 'POST',
+                    body: dados
+                })
+                .then(alert('User successfully deleted'))
+
+            })
+        })
+    }
+
     registerEmployee();
     loadAll();
 })();
+
+
+
+
 
 /*
 var  xhr = new XMLHttpRequest();
