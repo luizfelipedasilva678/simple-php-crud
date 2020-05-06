@@ -63,6 +63,24 @@ nav{
     grid-area: navigation;
 }
 
+.delete{
+    font-size: 1.3em;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(209, 71, 71);
+    border-radius: 50%;
+    border-color: rgb(209, 71, 71);
+}
+
+.edit{
+    font-size: 1.3em;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(60, 146, 226);
+    border-radius: 50%;
+    border-color: rgb(60, 146, 226);
+}
+
 footer{
     padding-top: 8px;
     color: white;
