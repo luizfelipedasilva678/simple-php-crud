@@ -16,7 +16,7 @@
         public function loadAll(int $qtd){
             try{
                 $quantity = $qtd;
-                $this->sql = "select id,first_name, last_name, email, gender, job_title from employees where id<=40";
+                $this->sql = "select id, first_name, last_name, email, gender, job_title from employees where id<=130";
                 $this->stmt = $this->connection->prepare($this->sql);
                 $this->stmt->bindParam(":qtd", $quantity);
                 $this->stmt->execute();
@@ -53,5 +53,33 @@
             }
         }
 
+        public function selectEmployee(int $id){
+            try{
+                $this->sql = "select first_name, last_name, email, gender, job_title from employees where id=? ";
+                $this->stmt = $this->connection->prepare($this->sql);
+                $this->stmt->bindValue(1, $id);
+                $this->stmt->execute();
+                $result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+            }catch(PDOException $e){
+                throw new CrudException("Error CrudException: " . $e->getMessage());
+            }
+        }
+
+        public function editEmployee(Employee $employee, int $id){
+            try{
+                $this->sql = "UPDATE employees SET first_name=?, last_name=?, email=?, gender=?, job_title=? WHERE id=?";
+                $this->stmt = $this->connection->prepare($this->sql);
+                $this->stmt->bindValue(1, $employee->getFirstName());
+                $this->stmt->bindValue(2, $employee->getLastName());
+                $this->stmt->bindValue(3, $employee->getEmail());
+                $this->stmt->bindValue(4, $employee->getGender());
+                $this->stmt->bindValue(5, $employee->getJobTitle());
+                $this->stmt->bindParam(6, $id);
+                $this->stmt->execute();
+            }catch(PDOException $e){
+                throw new CrudException("Error CrudException: " . $e->getMessage());
+            }
+        }
     }
 ?>

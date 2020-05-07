@@ -1,4 +1,5 @@
 <?php
+    require_once("../model/CrudException.php");
     require_once("../model/ConnectionSingleton.php");
     require_once("../model/EmployeesDAO.php");
     $con = ConnectionSingleton::getInstace()->getPDOConnection();

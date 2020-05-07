@@ -19,6 +19,13 @@
     border-style: none;
 }
 
+.modal{
+    display: block;
+    width: 400px;
+    height: 400px;
+    z-index: 4;
+}
+
 .employees{
     width: 500px;
 }
@@ -78,18 +85,14 @@ nav{
     font-size: 1.3em;
     height: 40px;
     width: 40px;
-    background-color: rgb(209, 71, 71);
-    border-radius: 50%;
-    border-color: rgb(209, 71, 71);
+    color: red;
 }
 
 .edit{
+    color:  rgb(25, 109, 187);
     font-size: 1.3em;
     height: 40px;
     width: 40px;
-    background-color: rgb(60, 146, 226);
-    border-radius: 50%;
-    border-color: rgb(60, 146, 226);
 }
 
 footer{
