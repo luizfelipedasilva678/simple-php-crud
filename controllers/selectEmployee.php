@@ -6,6 +6,7 @@
 
     $idArray = json_decode($_POST['id'], true);
     $id = (int)$idArray['id'];
+    
     try{
         $em = new EmployessDAO($con);
         $result = $em->selectEmployee($id);

@@ -1,4 +1,4 @@
-(function(){
+(function(){    
     function loadAll(){
         var $link = document.querySelector("#ajax");
         $link.addEventListener('click', function(e){
@@ -55,20 +55,25 @@
                             let gender = document.querySelector("#gender").value;
                             let jobTitle = document.querySelector("#jobTitle").value;
                             let dados = new FormData();
+                            
+                            if(firstName === '' || firstName.length < 3 || lastName === '' || lastName.length < 3){
+                                alert("The first and second names cannot be empty or less than three characters");
+                            }else{
+                                employee.firstName = firstName;
+                                employee.lastName = lastName;
+                                employee.email = email;
+                                employee.gender = gender;
+                                employee.jobTitle = jobTitle;
+                                dados.append('employee', JSON.stringify(employee));
+                                
+                                fetch('../controllers/insertEmployee.php', {
+                                    method: 'POST',
+                                    body: dados
+                                })
+                                .then(updateTable())
+                                .then(alert('User successfully registered'))
+                            }
 
-                            employee.firstName = firstName;
-                            employee.lastName = lastName;
-                            employee.email = email;
-                            employee.gender = gender;
-                            employee.jobTitle = jobTitle;
-                            dados.append('employee', JSON.stringify(employee));
-                           
-                            fetch('../controllers/insertEmployee.php', {
-                                method: 'POST',
-                                body: dados
-                            })
-                            .then(updateTable())
-                            .then(alert('User successfully registered'))
                         })
                     } else {
                         alert('Response error');
@@ -158,21 +163,25 @@
                                 let jobTitle = document.querySelector("#jobTitle").value;
                                 let dados = new FormData();
                                 
-                                id.id = identification;
-                                employee.firstName = firstName;
-                                employee.lastName = lastName;
-                                employee.email = email;
-                                employee.gender = gender;
-                                employee.jobTitle = jobTitle;
-                                dados.append('employee', JSON.stringify(employee));
-                                dados.append('id', JSON.stringify(id));
-                                
-                                fetch('../controllers/editEmployee.php', {
-                                    method: 'POST',
-                                    body: dados
-                                })
-                                .then(updateTable())
-                                .then(alert('User successfully updated'))
+                                if(firstName === '' || firstName.length < 3 || lastName === '' || lastName.length < 3){
+                                    alert("The first and second names cannot be empty or less than three characters");
+                                }else{
+                                    id.id = identification;
+                                    employee.firstName = firstName;
+                                    employee.lastName = lastName;
+                                    employee.email = email;
+                                    employee.gender = gender;
+                                    employee.jobTitle = jobTitle;
+                                    dados.append('employee', JSON.stringify(employee));
+                                    dados.append('id', JSON.stringify(id));
+                                    
+                                    fetch('../controllers/editEmployee.php', {
+                                        method: 'POST',
+                                        body: dados
+                                    })
+                                    .then(updateTable())
+                                    .then(alert('User successfully updated'))
+                                }
                             })
                         } else {
                             alert('Response error');
@@ -206,7 +215,6 @@
                         if(xhr.status === 200 || xhr.status === 304){  
                             try{ 
                                 let response = JSON.parse(xhr.response);
-                                console.log(response)
                                 document.querySelector('#firstName').value = response[0].first_name;
                                 document.querySelector('#lastName').value = response[0].last_name;
                                 document.querySelector('#jobTitle').value = response[0].job_title;
@@ -226,8 +234,32 @@
         })
     }
 
+    function info(){
+        fetch('info.html')
+        .then(resp => resp.text())
+        .then(resp => document.querySelector('#main').innerHTML = resp);
+        document.querySelector("#info").addEventListener('click', function(e){
+            fetch('info.html')
+            .then(resp => resp.text())
+            .then(resp => document.querySelector('#main').innerHTML = resp);
+        })
+    }
+
+    function clock(){
+        var myVar = setInterval(myTimer ,1000);
+        function myTimer() {
+            var d = new Date(), displayDate;
+                if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+                    displayDate = d.toLocaleTimeString('pt-BR');
+                } else {
+                    displayDate = d.toLocaleTimeString('pt-BR', {timeZone: 'America/Belem'});
+                }
+            document.querySelector(".clock").innerHTML = displayDate;
+         }
+    }
+
     function generateTable(response){
-        tableElements = "<table class='employees table table-hover'>";
+        tableElements = '<table id="mytable" class="employees table table-hover">';
             tableElements +=
                 "<thead class='thead-dark'>"+ 
                     '<tr>'+ 
@@ -261,9 +293,13 @@
         tableElements += "</table>"
         var content = document.querySelector('#main');
         content.innerHTML = tableElements;
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
     }
 
-
+    clock();
+    info();
     registerEmployee();
     loadAll();
 })();

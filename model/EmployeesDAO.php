@@ -13,13 +13,15 @@
             $this->connection = $connection;    
         }
         
-        public function loadAll(int $qtd){
+        public function loadAll(){
             try{
-                $quantity = $qtd;
-                $this->sql = "select id, first_name, last_name, email, gender, job_title from employees where id<=130";
+                $quantity = 30;
+                $this->sql = "select id, first_name, last_name, email, gender, job_title from employees where id<=150";
                 $this->stmt = $this->connection->prepare($this->sql);
                 $this->stmt->bindParam(":qtd", $quantity);
                 $this->stmt->execute();
+                $qtdrows = $this->stmt->rowCount();
+                $pages = $qtdrows/$quantity;
                 $result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $result;
             }catch(PDOException $e){

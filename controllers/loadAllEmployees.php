@@ -6,7 +6,7 @@
 
     try{
         $em = new EmployessDAO($con);
-        $result = $em->loadAll($_POST['values']=15);
+        $result = $em->loadAll();
     }catch(CrudException $e){
         echo $e->getMessage();
     }

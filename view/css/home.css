@@ -36,7 +36,7 @@
     height: 60px;
     width: 200px;
     background-color: rgba(4, 119, 196, 0.8);
-    /*border-right: solid lightskyblue 3px;*/
+    border-right: solid lightskyblue 3px;
     border-bottom: solid white 3px;
 }
 
@@ -65,7 +65,9 @@ ol li{
     margin: 10px;
     list-style: none;
 }
-
+.tfoot-dark{
+    background-color: rgba(17, 17, 17, 0.945);
+}
 .register {
     margin: 10px;
     padding: 10px;
@@ -86,6 +88,24 @@ nav{
     height: 40px;
     width: 40px;
     color: red;
+}
+
+.clockDiv{
+    padding: 8px;
+    height: 60px;
+    width: 200px;
+    float: right;
+}
+
+.clock{
+    font-size: 28px;
+}
+
+.greeting{
+    display: inline-block;
+    position: absolute;
+    left: 40%;
+    bottom: 50%;
 }
 
 .edit{
